@@ -1,16 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-console.log('🚀 Creating static Sanity Studio build...');
-
-// Create dist directory
-const distDir = path.join(__dirname, 'dist');
-if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true });
-}
-
-// Create a simple HTML file that redirects to the local Sanity Studio
-const htmlContent = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -77,27 +65,4 @@ const htmlContent = `<!DOCTYPE html>
         </div>
     </div>
 </body>
-</html>`;
-
-fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
-
-// Create a simple API endpoint for Vercel
-const apiDir = path.join(distDir, 'api');
-if (!fs.existsSync(apiDir)) {
-  fs.mkdirSync(apiDir, { recursive: true });
-}
-
-const apiContent = `export default function handler(req, res) {
-  res.status(200).json({ 
-    message: 'FishandTips Studio API',
-    studio: 'https://fishandtips.sanity.studio',
-    status: 'active',
-    projectId: '3nnnl6gi',
-    dataset: 'production'
-  });
-}`;
-
-fs.writeFileSync(path.join(apiDir, 'studio.js'), apiContent);
-
-console.log('✅ Static build completed!');
-console.log('📁 Files created in dist/ directory');
+</html>
