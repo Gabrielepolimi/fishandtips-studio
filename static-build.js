@@ -68,7 +68,7 @@ const htmlContent = `<!DOCTYPE html>
     <div class="container">
         <h1>🎣 FishandTips Studio</h1>
         <p>Il tuo CMS per la gestione dei contenuti di pesca</p>
-        <a href="https://fishandtips.sanity.studio" class="button" target="_blank">
+        <a href="https://fishandtips.sanity.studio/" class="button" target="_blank">
             Apri Sanity Studio
         </a>
         <div class="info">
@@ -90,7 +90,7 @@ if (!fs.existsSync(apiDir)) {
 const apiContent = `export default function handler(req, res) {
   res.status(200).json({ 
     message: 'FishandTips Studio API',
-    studio: 'https://fishandtips.sanity.studio',
+    studio: 'https://fishandtips.sanity.studio/',
     status: 'active',
     projectId: '3nnnl6gi',
     dataset: 'production'
