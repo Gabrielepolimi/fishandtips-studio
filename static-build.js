@@ -85,6 +85,10 @@ fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
 const authHtmlContent = fs.readFileSync(path.join(__dirname, 'auth.html'), 'utf8');
 fs.writeFileSync(path.join(distDir, 'auth.html'), authHtmlContent);
 
+// Create studio proxy page
+const proxyHtmlContent = fs.readFileSync(path.join(__dirname, 'studio-proxy.html'), 'utf8');
+fs.writeFileSync(path.join(distDir, 'studio-proxy.html'), proxyHtmlContent);
+
 // Create a simple API endpoint for Vercel
 const apiDir = path.join(distDir, 'api');
 if (!fs.existsSync(apiDir)) {

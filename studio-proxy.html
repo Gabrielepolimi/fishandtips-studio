@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishandTips Studio - Accesso Protetto</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #134D85 0%, #FBD874 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .studio-frame {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .logout-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        .logout-btn:hover {
+            background: #ff5252;
+        }
+        .direct-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: #51cf66;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+            text-decoration: none;
+        }
+        .direct-link:hover {
+            background: #40c057;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎣 FishandTips Studio - CMS Protetto</h1>
+        <p>Gestione contenuti di pesca</p>
+    </div>
+    
+    <a href="https://fishandtips.sanity.studio/" target="_blank" class="direct-link">Apri in Nuova Tab</a>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+    
+    <div class="container">
+        <iframe 
+            src="https://fishandtips.sanity.studio/" 
+            class="studio-frame"
+            id="studioFrame">
+        </iframe>
+    </div>
+
+    <script>
+        // Controlla autenticazione
+        function checkAuth() {
+            const isAuth = localStorage.getItem('fishandtips_auth');
+            const authTime = localStorage.getItem('fishandtips_auth_time');
+            const now = Date.now();
+            const hours24 = 24 * 60 * 60 * 1000;
+            
+            if (isAuth !== 'true' || !authTime || (now - parseInt(authTime)) >= hours24) {
+                // Non autenticato, reindirizza al login
+                window.location.href = '/auth.html';
+                return false;
+            }
+            return true;
+        }
+        
+        // Logout
+        function logout() {
+            localStorage.removeItem('fishandtips_auth');
+            localStorage.removeItem('fishandtips_auth_time');
+            window.location.href = '/auth.html';
+        }
+        
+        // Controlla autenticazione al caricamento
+        window.addEventListener('load', function() {
+            if (!checkAuth()) {
+                return;
+            }
+            
+            // Aggiorna l'autenticazione ogni volta che si accede
+            localStorage.setItem('fishandtips_auth_time', Date.now());
+        });
+        
+        // Controlla autenticazione ogni 5 minuti
+        setInterval(checkAuth, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
