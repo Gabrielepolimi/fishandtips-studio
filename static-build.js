@@ -68,8 +68,8 @@ const htmlContent = `<!DOCTYPE html>
     <div class="container">
         <h1>🎣 FishandTips Studio</h1>
         <p>Il tuo CMS per la gestione dei contenuti di pesca</p>
-        <a href="https://fishandtips.sanity.studio/" class="button" target="_blank">
-            Apri Sanity Studio
+        <a href="/auth.html" class="button">
+            Accedi a Sanity Studio
         </a>
         <div class="info">
             <p>⚠️ Per utilizzare Sanity Studio, accedi tramite il link sopra</p>
@@ -80,6 +80,10 @@ const htmlContent = `<!DOCTYPE html>
 </html>`;
 
 fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
+
+// Create auth page
+const authHtmlContent = fs.readFileSync(path.join(__dirname, 'auth.html'), 'utf8');
+fs.writeFileSync(path.join(distDir, 'auth.html'), authHtmlContent);
 
 // Create a simple API endpoint for Vercel
 const apiDir = path.join(distDir, 'api');
